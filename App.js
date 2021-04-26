@@ -1,21 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
+import { Acme_400Regular } from '@expo-google-fonts/acme';
+
+import Routes from './src/routes'
 
 export default function App() {
+
+  //carregar fonte
+  let [fontsLoaded] = useFonts(
+    { Acme_400Regular },
+  );
+
+  //verificar se a fonte carregou
+  if (!fontsLoaded) {
+    return (
+      <AppLoading />//segurando a splash enquanto a fonte carrega
+    )
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar hidden />
+      <Routes />
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
